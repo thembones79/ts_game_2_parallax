@@ -7,6 +7,16 @@ let gameSpeed = 5;
 let playerState = "idle";
 const playerImage = new Image();
 playerImage.src = "assets/shadow_dog.png";
+const backgroundLayer1 = new Image();
+backgroundLayer1.src = "assets/layer-1.png";
+const backgroundLayer2 = new Image();
+backgroundLayer2.src = "assets/layer-2.png";
+const backgroundLayer3 = new Image();
+backgroundLayer3.src = "assets/layer-3.png";
+const backgroundLayer4 = new Image();
+backgroundLayer4.src = "assets/layer-4.png";
+const backgroundLayer5 = new Image();
+backgroundLayer5.src = "assets/layer-5.png";
 const sw = 575;
 const sh = 523;
 const dx = 0;
@@ -14,6 +24,7 @@ const dy = 0;
 const dw = 575;
 const dh = 523;
 let fx = 0;
+let x2 = 2400;
 let fy = 0;
 let gameFrame = 0;
 const staggerFrames = 5;
@@ -88,13 +99,21 @@ const setupCanvas = () => {
 
 function animate(ctx: CanvasRenderingContext2D) {
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-    let position =
-        Math.floor(gameFrame / staggerFrames) %
-        spriteAnimatios[playerState].loc.length;
-    fx = sw * position;
-    fy = spriteAnimatios[playerState].loc[0].y;
-    ctx.drawImage(playerImage, fx, fy, sw, sh, dx, dy, dw, dh);
-    gameFrame++;
+
+    // ctx.drawImage(backgroundLayer4, fx, 0);
+    // ctx.drawImage(backgroundLayer4, x2, 0);
+    // if (fx < -2400) fx = 2400 + x2 - gameSpeed;
+    // else fx -= gameSpeed;
+    // if (x2 < -2400) x2 = 2400 + fx - gameSpeed;
+    // else x2 -= gameSpeed;
+
+    // let position =
+    //     Math.floor(gameFrame / staggerFrames) %
+    //     spriteAnimatios[playerState].loc.length;
+    // fx = sw * position;
+    // fy = spriteAnimatios[playerState].loc[0].y;
+    // ctx.drawImage(playerImage, fx, fy, sw, sh, dx, dy, dw, dh);
+    // gameFrame++;
     requestAnimationFrame(() => animate(ctx));
 }
 
