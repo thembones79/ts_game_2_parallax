@@ -24,7 +24,6 @@ const setupCanvas = () => {
     canvas.width = CANVAS_WIDTH
     canvas.height = CANVAS_HEIGHT
     if (!ctx) return
-
     animate(ctx)
 }
 
@@ -52,18 +51,30 @@ class Layer {
         this.speed = gameSpeed * this.speedModifier
         if (this.x <= -this.width) {
             this.x = this.x2 + (this.width - this.speed)
-            if (this.x2 <= -this.width) {
-                this.x2 = this.x + (this.width - this.speed)
-            }
         }
+        if (this.x2 <= -this.width) {
+            this.x2 = this.x + (this.width - this.speed)
+        }
+        this.x = Math.floor(this.x - this.speed)
+        this.x2 = Math.floor(this.x2 - this.speed)
     }
 
-    draw() {}
+    draw(ctx: CanvasRenderingContext2D) {
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
+        ctx.drawImage(this.image, this.x2, this.y, this.width, this.height)
+    }
+
+    animate(ctx: CanvasRenderingContext2D) {
+        this.update()
+        this.draw(ctx)
+    }
 }
+
+const layer4 = new Layer(backgroundLayer4, 0.5)
 
 function animate(ctx: CanvasRenderingContext2D) {
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
-
+    layer4.animate(ctx)
     requestAnimationFrame(() => animate(ctx))
 }
 
