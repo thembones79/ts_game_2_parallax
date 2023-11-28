@@ -1,12 +1,26 @@
-body{
+body {
     background: #090600;
 }
+
+#container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    font-size: 25px;
+}
+
 #canvas1 {
-  border: 5px solid white;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px;
-  height: 700px;
+    position: relative;
+    width: 800px;
+    height: 700px;
+}
+
+#slider {
+    width: 100%;
+}
+
+p {
+    color: white;
 }

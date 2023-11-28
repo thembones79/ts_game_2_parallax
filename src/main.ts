@@ -24,7 +24,22 @@ const setupCanvas = () => {
     canvas.width = CANVAS_WIDTH
     canvas.height = CANVAS_HEIGHT
     if (!ctx) return
+    setupSlider()
     animate(ctx)
+}
+
+const setupSlider = () => {
+    const slider = document.getElementById('slider') as HTMLInputElement
+    slider.value = `${gameSpeed}`
+    const showGameSpeed = document.getElementById(
+        'showGameSpeed'
+    ) as HTMLSpanElement
+    showGameSpeed.innerHTML = `${gameSpeed}`
+    slider.addEventListener("change", (e:Event)=>{
+console.log(e.target.value);
+gameSpeed=e.target.value;
+showGameSpeed.innerHTML = e.target.value;
+    })
 }
 
 class Layer {
@@ -70,17 +85,25 @@ class Layer {
     }
 }
 
-const layer4 = new Layer(backgroundLayer4, 0.5)
+const layer1 = new Layer(backgroundLayer1, 0.1)
+const layer2 = new Layer(backgroundLayer2, 0.2)
+const layer3 = new Layer(backgroundLayer3, 0.4)
+const layer4 = new Layer(backgroundLayer4, 0.8)
+const layer5 = new Layer(backgroundLayer5, 1.6)
+
+const layers = [layer1, layer2, layer3, layer4, layer5]
 
 function animate(ctx: CanvasRenderingContext2D) {
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
-    layer4.animate(ctx)
+    layers.forEach((layer) => layer.animate(ctx))
     requestAnimationFrame(() => animate(ctx))
 }
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-<div>
+<div id="container">
     <canvas id="canvas1"></canvas>
+    <p>Game speed: <span id="showGameSpeed"></span></p>
+    <input type="range" min="0" max="20" value="5" class="slider" id="slider">
 </div>
 `
 
